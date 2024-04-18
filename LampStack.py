@@ -5,6 +5,7 @@ from ttkthemes import ThemedStyle
 import os
 import sys
 
+
 def lamp_server():
     username = user_entry.get()
     password = password_entry.get()
