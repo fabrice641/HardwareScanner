@@ -2,63 +2,63 @@ import subprocess
 import tkinter as tk
 from tkinter import ttk, messagebox
 from ttkthemes import ThemedStyle
-from sudo import run_as_sudo
 import os
 import sys
 
+def lamp_server():
+    username = user_entry.get()
+    password = password_entry.get()
 
-
-
-
-
-def lamp_server(dialog):
     server = [
-        ['sudo', 'apt', 'install', 'apache2'],
-        ['sudo', 'apt', 'install', 'ghostscript'],
-        ['sudo', 'apt', 'install', 'libapache2-mod-php'],
-        ['sudo', 'apt', 'install', 'phpmyadmin'],
-        ['sudo', 'apt', 'install', 'php'],
-        ['sudo', 'apt', 'install', 'php-curl'],
-        ['sudo', 'apt', 'install', 'php-imagick'],
-        ['sudo', 'apt', 'install', 'php-bcmath'],
-        ['sudo', 'apt', 'install', 'php-intl'],
-        ['sudo', 'apt', 'install', 'php-json'],
-        ['sudo', 'apt', 'install', 'php-mbstring'],
-        ['sudo', 'apt', 'install', 'php-mysql'],
-        ['sudo', 'apt', 'install', 'php-xml'],
-        ['sudo', 'apt', 'install', 'php-yaml'],
-        ['sudo', 'apt', 'install', 'php-zip']
+        f'echo {password} | sudo -S apt install apache2',
+        f'echo {password} | sudo -S apt install ghostscript',
+        f'echo {password} | sudo -S apt install libapache2-mod-php',
+        f'echo {password} | sudo -S apt install phpmyadmin',
+        f'echo {password} | sudo -S apt install php',
+        f'echo {password} | sudo -S apt install php-curl',
+        f'echo {password} | sudo -S apt install php-imagick',
+        f'echo {password} | sudo -S apt install php-bcmath',
+        f'echo {password} | sudo -S apt install php-intl',
+        f'echo {password} | sudo -S apt install php-json',
+        f'echo {password} | sudo -S apt install php-mbstring',
+        f'echo {password} | sudo -S apt install php-mysql',
+        f'echo {password} | sudo -S apt install php-xml',
+        f'echo {password} | sudo -S apt install php-yaml',
+        f'echo {password} | sudo -S apt install php-zip'
     ]
     
     progress_bar['maximum'] = len(server)
     progress_bar['value'] = 0
     
     try:
-        for commands in server:
-            subprocess.run(commands, check=True)
+        for command in server:
+            subprocess.run(command, shell=True, check=True)
             progress_bar['value'] += 1
             root.update_idletasks()  # Aggiorna l'interfaccia grafica
         messagebox.showinfo('Success', 'LAMP Server installed successfully!')
     except subprocess.CalledProcessError as e:
         messagebox.showerror('Error', f'Failed to install LAMP Server: {e}')
 
-def uninstall(dialog):
+def uninstall():
+    username = user_entry.get()
+    password = password_entry.get()
+
     uninstall_commands = [
-        ['sudo', 'apt', 'autoremove', '-y', 'apache2'],
-        ['sudo', 'apt', 'autoremove', '-y', 'ghostscript'],
-        ['sudo', 'apt', 'autoremove', '-y', 'libapache2-mod-php'],
-        ['sudo', 'apt', 'autoremove', '-y', 'phpmyadmin'],
-        ['sudo', 'apt', 'autoremove', '-y', 'php'],
-        ['sudo', 'apt', 'autoremove', '-y', 'php-curl'],
-        ['sudo', 'apt', 'autoremove', '-y', 'php-imagick'],
-        ['sudo', 'apt', 'autoremove', '-y', 'php-bcmath'],
-        ['sudo', 'apt', 'autoremove', '-y', 'php-intl'],
-        ['sudo', 'apt', 'autoremove', '-y', 'php-json'],
-        ['sudo', 'apt', 'autoremove', '-y', 'php-mbstring'],
-        ['sudo', 'apt', 'autoremove', '-y', 'php-mysql'],
-        ['sudo', 'apt', 'autoremove', '-y', 'php-xml'],
-        ['sudo', 'apt', 'autoremove', '-y', 'php-yaml'],
-        ['sudo', 'apt', 'autoremove', '-y', 'php-zip']
+        f'echo {password} | sudo -S apt autoremove -y apache2',
+        f'echo {password} | sudo -S apt autoremove -y ghostscript',
+        f'echo {password} | sudo -S apt autoremove -y libapache2-mod-php',
+        f'echo {password} | sudo -S apt autoremove -y phpmyadmin',
+        f'echo {password} | sudo -S apt autoremove -y php',
+        f'echo {password} | sudo -S apt autoremove -y php-curl',
+        f'echo {password} | sudo -S apt autoremove -y php-imagick',
+        f'echo {password} | sudo -S apt autoremove -y php-bcmath',
+        f'echo {password} | sudo -S apt autoremove -y php-intl',
+        f'echo {password} | sudo -S apt autoremove -y php-json',
+        f'echo {password} | sudo -S apt autoremove -y php-mbstring',
+        f'echo {password} | sudo -S apt autoremove -y php-mysql',
+        f'echo {password} | sudo -S apt autoremove -y php-xml',
+        f'echo {password} | sudo -S apt autoremove -y php-yaml',
+        f'echo {password} | sudo -S apt autoremove -y php-zip'
     ]
     
     progress_bar['maximum'] = len(uninstall_commands)
@@ -66,7 +66,7 @@ def uninstall(dialog):
     
     try:
         for command in uninstall_commands:
-            subprocess.run(command, check=True)
+            subprocess.run(command, shell=True, check=True)
             progress_bar['value'] += 1
             root.update_idletasks()  # Aggiorna l'interfaccia grafica
         messagebox.showinfo('Success', 'LAMP Server uninstalled successfully!')
@@ -100,6 +100,16 @@ tab_control.add(tab1, text='LAMP SERVER')
 tab_control.add(tab3, text='UNINSTALL')
 tab_control.pack(expand=1, fill="both")
 
+user_label = tk.Label(tab1, text="Username:")
+user_label.pack(pady=(10, 0))
+user_entry = tk.Entry(tab1)
+user_entry.pack()
+
+password_label = tk.Label(tab1, text="Password:")
+password_label.pack(pady=(10, 0))
+password_entry = tk.Entry(tab1, show="*")
+password_entry.pack()
+
 lamp_server_button = ttk.Button(tab1, text="START LAMP SERVER", command=lamp_server)
 lamp_server_button.pack(padx=10, pady=5)
 
@@ -109,41 +119,11 @@ lamp_server_uninstall.pack(padx=10, pady=5)
 progress_bar = ttk.Progressbar(root, orient="horizontal", length=200, mode="determinate")
 progress_bar.pack(pady=10)
 
-root.geometry("400x450")
+root.geometry("400x400")
 root.mainloop()
-
-
-
 
 # Restore stdout and stderr
 sys.stdout.close()
 sys.stderr.close()
 sys.stdout = sys.__stdout__
 sys.stderr = sys.__stderr__
-
-
-def dialog(login):
-    tk.messagebox('You will next a new frame? ')
-
-
-try:
-    def login(cmd, sudo_user, root, access, user):
-        cmd = password.get()
-        sudo_user = user.get()
-        run_as_sudo(sudo_user, cmd, shell=True, timeout=20)
-        root = tk.Tk()
-        password = tk.Entry(root)
-        password.pack()
-        user = tk.Entry(root)
-        user.pack()
-
-        access = tk.Button(root, text="SUDO PERMISSION", command=dialog)
-        access.pack()
-
-        root.geometry('600x600')
-        root.mainloop()
-        
-        
-except:
-    root.destroy()
-
