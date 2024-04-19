@@ -1,0 +1,2 @@
+2024-04-19 19:00:30,445:ERROR:Errore durante l'installazione del Server LAMP: Command 'sudo apt update' returned non-zero exit status 1.
+2024-04-19 19:00:44,227:ERROR:Errore durante l'esecuzione dei comandi: Command 'sudo chmod +x ./xampp-linux-installer.run' returned non-zero exit status 1.
