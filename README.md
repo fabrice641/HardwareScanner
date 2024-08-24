@@ -1,5 +1,5 @@
 
- 1. **Progettazione Backend in C++
+ 1. Progettazione Backend in C++
    - Scansione del Sistema:
      - Implementazione di una classe `HardwareScanner` che esegue la scansione di dispositivi SSD e altri componenti hardware.
      - Metodi per rilevare e analizzare CPU, memoria, dispositivi di archiviazione, schede di rete, USB, etc.
