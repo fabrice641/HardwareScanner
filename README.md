@@ -75,7 +75,7 @@
      - Test di integrazione per verificare la corretta comunicazione tra backend e frontend.
      - Testing su diverse configurazioni hardware per garantire compatibilità e stabilità.
 
-g++ `pkg-config --cflags gtk+-3.0` -o hardware_scanner main.cpp SystemComponent.cpp HardwareScanner.cpp CPUKernel.cpp `pkg-config --libs gtk+-3.0`
+g++ `pkg-config --cflags gtk+-3.0` -o hardware_scanner main.cpp `pkg-config --libs gtk+-3.0`
 
 
  Conclusione
